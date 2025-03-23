@@ -660,6 +660,18 @@ function loadRecords2() {
             row3.insertCell(6).innerText = data4.uid;
             row3.insertCell(7).innerText = data4.dose1;
             row3.insertCell(8).innerText = data4.dose2;
+            let actionsCell1 = row3.insertCell(9);
+            let deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Delete";
+            deleteBtn.className = "btn btn-danger btn-sm";
+            deleteBtn.onclick = function () {
+                if (confirm("Are you sure you want to delete this record?")) {
+                    remove(ref(db, "dispense/" + data4.uid))
+                        .then(() => loadRecords())
+                        .catch(error => alert("Error deleting record: " + error.message));
+                }
+            };
+            actionsCell1.appendChild(deleteBtn);
 
         });
     });
